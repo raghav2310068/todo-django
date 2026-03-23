@@ -29,15 +29,21 @@
             <div class="card-body">
               {{ task.task }}
               <span style="position: relative; float: right">
-                <button class="btn btn-success">
-                  <i class="fa fa-check"></i>mark as done
-                </button>
-                <button class="btn btn-danger">
-                  <i class="fa fa-trash">🗑️</i>
-                </button>
-                <button class="btn btn-primary">
-                  <i class="fa fa-pencil"></i>✏️
-                </button>
+                <a
+                  href="{% url 'mark_as_Done' task.pk %}"
+                  class="btn btn-success btn-sm"
+                  >Done</a
+                >
+                <a
+                  href="{% url 'delete_task' task.pk %}"
+                  class="btn btn-danger btn-sm"
+                  >Delete</a
+                >
+                <a
+                  href="{% url 'edit_task' task.pk %}"
+                  class="btn btn-primary btn-sm"
+                  >Edit</a
+                >
               </span>
             </div>
           </div>
@@ -48,6 +54,11 @@
           {% for task in complete_tasks %}
           <div class="card m-1">
             <div class="card-body">{{ task.task }}</div>
+            <a
+              href="{% url 'mark_as_pending' task.pk %}"
+              class="btn btn-primary btn-sm"
+              >mark as undone</a
+            >
           </div>
           {% endfor %}
         </div>
