@@ -24,9 +24,10 @@
         <h4>My Day</h4>
         <p class="text-muted">{% now "jS F Y" %}</p>
         <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll">
+          {% for task in pending_tasks %}
           <div class="card m-1">
             <div class="card-body">
-              this is some task
+              {{ task.task }}
               <span style="position: relative; float: right">
                 <button class="btn btn-success">
                   <i class="fa fa-check"></i>mark as done
@@ -40,25 +41,30 @@
               </span>
             </div>
           </div>
+          {% endfor %}
         </div>
         <div class="col-md-5 col-lg-5">
           <h5>completed tasks</h5>
+          {% for task in complete_tasks %}
           <div class="card m-1">
-            <div class="card-body">this is a completed task</div>
+            <div class="card-body">{{ task.task }}</div>
           </div>
+          {% endfor %}
         </div>
       </div>
       <div class="row">
         <div class="col-md-7 col-lg-7" style="position: absolute; bottom: 50px">
-          <form action="">
+          <form action="{% url  'addTask' %}" method="post">
+            {% csrf_token %}
             <div class="form-group">
               <span style="display: flex"
                 ><input
                   type="text"
                   class="form-control"
+                  name="task"
                   placeholder="add a task"
                 />
-                <button class="btn btn-primary">Add Task</button>
+                <button type="submit" class="btn btn-primary">Add Task</button>
               </span>
             </div>
           </form>
